@@ -1,3 +1,6 @@
+# Version: 1.0.1
+# Built with GitHub Actions
+# CS6620 Topic 5 Exercise 3
 import os
 import re
 import csv
