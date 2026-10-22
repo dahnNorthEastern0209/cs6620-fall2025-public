@@ -53,6 +53,34 @@
             text-align: center;
             margin-bottom: 20px;
         }
+        .deployment-banner {
+            box-sizing: border-box;
+            margin: 0 auto 24px;
+            padding: 18px 20px;
+            border: 1px solid #93d7aa;
+            border-radius: 8px;
+            background: #edf9f0;
+            color: #174b2b;
+            line-height: 1.55;
+        }
+        .deployment-banner h2 {
+            margin: 0 0 10px;
+            color: #176235;
+            text-align: left;
+            font-size: 1.25rem;
+        }
+        .deployment-banner p {
+            margin: 5px 0;
+        }
+        .version-badge {
+            display: inline-block;
+            margin-left: 8px;
+            padding: 2px 9px;
+            border-radius: 999px;
+            background: #176235;
+            color: white;
+            font-size: 0.85rem;
+        }
         .section-box { /* Generic box for sections */
             margin-bottom: 20px;
             padding: 15px;
@@ -164,6 +192,13 @@
 <body>
     <div class="container">
         <h1>Python Network Audio Player</h1>
+
+        <section class="deployment-banner" aria-label="Automated deployment information">
+            <h2>Automated CI/CD Deployment <span class="version-badge">Version {{ app_version }}</span></h2>
+            <p><strong>Deployed via:</strong> {{ deployment_method }}</p>
+            <p><strong>Assignment:</strong> {{ assignment }}</p>
+            <p><strong>Page generated:</strong> {{ timestamp }}</p>
+        </section>
 
         <div class="section-box log-upload-section">
             <h2>Load Error Log File</h2>
