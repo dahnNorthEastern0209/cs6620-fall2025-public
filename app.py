@@ -1,6 +1,6 @@
-# Version: 1.0.1
-# Built with GitHub Actions
-# CS6620 Topic 5 Exercise 3
+# Version: 2.0
+# Deployed via GitHub Actions + AWS Systems Manager
+# CS6620 Topic 7 Exercise 3
 import os
 import re
 import csv
@@ -9,6 +9,7 @@ from flask import Flask, render_template, request, jsonify, send_from_directory,
 from flask_cors import CORS
 from pydub import AudioSegment
 import tempfile
+from datetime import datetime, timezone
 
 app = Flask(__name__)
 CORS(app)
@@ -145,9 +146,27 @@ def serve_audio_segment():
 @app.route('/')
 def index():
     """
-    Renders the main HTML page for the client-side audio player.
+    Renders the audio player with automated deployment details.
     """
-    return render_template('index.html') 
+    return render_template(
+        'index.html',
+        app_version='2.0',
+        deployment_method='GitHub Actions + AWS SSM',
+        assignment='CS6620 Topic 7 Exercise 3',
+        timestamp=datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M:%S UTC')
+    )
+
+
+@app.route('/health', methods=['GET'])
+def health():
+    """Return application health and deployment metadata."""
+    return jsonify({
+        'status': 'healthy',
+        'version': '2.0',
+        'deployment_method': 'GitHub Actions + AWS SSM',
+        'assignment': 'CS6620 Topic 7 Exercise 3',
+        'timestamp': datetime.now(timezone.utc).isoformat()
+    })
 
 @app.route('/select_directory', methods=['POST'])
 def select_directory():
@@ -575,3 +594,4 @@ if __name__ == '__main__':
     # Auto-load CSV and audio files on startup
     auto_load_data()
     app.run(debug=True, host='0.0.0.0', port=3000)
+
